@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTA Sections - VineNet</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<style>
+/* ── SCSS Variables compiled ── */
+:root {
+  --theme1: #FF2B00;
+  --theme2: #3d3d3d;
+  --theme3: #F5F5F5;
+  --fs-14: 14px; --fs-15: 15px; --fs-16: 16px;
+  --fs-18: 18px; --fs-20: 20px; --fs-22: 22px;
+  --fw-400: 400; --fw-500: 500; --fw-600: 600; --fw-700: 700;
+}
+
+/* ── Shared Keyframes ── */
+@keyframes cta-float      { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+@keyframes cta-rotate-slow{ 0%{transform:rotate(0deg)} 100%{transform:rotate(360deg)} }
+@keyframes cta-slide-up   { 0%{transform:translateY(40px);opacity:0} 100%{transform:translateY(0);opacity:1} }
+@keyframes cta-slide-left { 0%{transform:translateX(-60px);opacity:0} 100%{transform:translateX(0);opacity:1} }
+@keyframes cta-slide-right{ 0%{transform:translateX(60px);opacity:0} 100%{transform:translateX(0);opacity:1} }
+@keyframes cta-shimmer    { 0%{left:-100%} 100%{left:200%} }
+@keyframes cta-bounce     { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+@keyframes cta-blink      { 0%,100%{opacity:1} 50%{opacity:0.3} }
+@keyframes cta-ticker     { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+@keyframes cta-shap-drift { 0%,100%{transform:translateY(0) rotate(0deg)} 33%{transform:translateY(-25px) rotate(12deg)} 66%{transform:translateY(10px) rotate(-8deg)} }
+@keyframes cta-bar-grow   { 0%{width:0%} 100%{width:var(--bar-w,70%)} }
+@keyframes moveing-dot    { 0%,100%{left:2px} 50%{left:18px} }
+@keyframes slide2         { 0%,100%{transform:translateX(3px)} 50%{transform:translateX(0)} }
+
+/* ── Sub-heading component ── */
+.sub-heading {
+  font-weight:600; color:var(--theme1); margin-bottom:16px;
+  text-transform:capitalize; display:flex; align-items:center; gap:8px;
+}
+.sub-heading span {
+  width:40px; height:12px; border-radius:30px; display:inline-block;
+  border:1px solid var(--theme1); position:relative; overflow:hidden;
+}
+.sub-heading span::before {
+  content:""; width:18px; height:6px; background:var(--theme1);
+  border-radius:30px; animation:moveing-dot 2s linear infinite;
+  position:absolute; left:0; top:0; bottom:0; margin:auto;
+}
+
+/* ── themebtn component ── */
+.themebtn {
+  font-size:var(--fs-16); font-weight:600; border-radius:0;
+  border:2px solid var(--theme1); overflow:hidden; padding:12px 32px;
+  display:inline-block; position:relative; color:#fff;
+  z-index:1; text-transform:capitalize; transition:all .3s ease;
+  text-decoration:none; cursor:pointer;
+}
+.themebtn::before {
+  content:''; width:calc(100% + 4px); height:100%;
+  background:linear-gradient(90deg,#991900,var(--theme1));
+  top:0; left:50%; transform:translateX(-50%);
+  position:absolute; z-index:-1; transition:all .3s ease;
+}
+.themebtn:hover { color:var(--theme1); }
+.themebtn:hover::before { width:60%; opacity:0; visibility:hidden; }
+.themebtn.outline { color:var(--theme1); }
+.themebtn.outline::before { width:60%; opacity:0; }
+.themebtn.outline:hover { color:#fff; }
+.themebtn.outline:hover::before { width:calc(100% + 4px); opacity:1; visibility:visible; }
+
+/* ── serviceBtn ── */
+.serviceBtn {
+  display:inline-flex; align-items:center; gap:10px; font-weight:500;
+  font-size:var(--fs-16); color:var(--theme1);
+  background:linear-gradient(90deg,#1a1a1a,var(--theme1)) left bottom / 0 2px no-repeat;
+  transition:background-size .3s ease; text-decoration:none; padding-bottom:2px;
+}
+.serviceBtn span { animation:slide2 1s ease-in-out infinite; }
+.serviceBtn:hover { background-size:100% 2px; color:var(--theme1); }
+
+/* ===========================================
+   CTA 1 — HERO BANNER
+=========================================== */
+.cta-hero {
+  position:relative; overflow:hidden;
+  background-color:#222; padding:80px 0;
+}
+.cta-hero__shape { position:absolute; pointer-events:none; z-index:0; }
+.cta-hero__shape--tri {
+  top:-20px; right:80px; width:0; height:0;
+  border-left:55px solid transparent; border-right:55px solid transparent;
+  border-bottom:95px solid rgba(255,43,0,.25);
+  animation:cta-shap-drift 6s ease-in-out infinite;
+}
+.cta-hero__shape--circle {
+  bottom:-60px; left:-60px; width:220px; height:220px; border-radius:50%;
+  border:40px solid rgba(255,43,0,.08);
+  animation:cta-rotate-slow 18s linear infinite;
+}
+.cta-hero__shape--dot-grid {
+  top:30px; right:35%; width:100px; height:100px;
+  background-image:radial-gradient(rgba(255,255,255,.15) 1.5px,transparent 1.5px);
+  background-size:14px 14px; animation:cta-float 5s ease-in-out infinite;
+}
+.cta-hero__shape--cube {
+  bottom:40px; right:20%; width:50px; height:50px;
+  background:rgba(255,43,0,.3); transform:rotate(30deg);
+  animation:cta-shap-drift 7s ease-in-out infinite 1s;
+}
+.cta-hero__inner { position:relative; z-index:2; }
+
+.cta-hero__badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,43,0,.15); border:1px solid rgba(255,43,0,.4);
+  border-radius:30px; padding:6px 16px 6px 8px; margin-bottom:22px;
+  animation:cta-slide-left .7s ease forwards;
+}
+.cta-hero__badge-icon {
+  width:28px; height:28px; border-radius:50%; background:var(--theme1);
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:14px;
+}
+.cta-hero__badge-text { font-size:14px; font-weight:600; color:var(--theme1); letter-spacing:.5px; }
+
+.cta-hero__heading {
+  color:#fff; font-weight:700; line-height:1.15; margin-bottom:16px;
+  animation:cta-slide-up .8s ease .2s both;
+}
+.cta-hero__heading span { color:var(--theme1); }
+.cta-hero__text {
+  color:rgba(255,255,255,.75); font-size:16px; line-height:1.7;
+  margin-bottom:36px; animation:cta-slide-up .8s ease .4s both;
+}
+.cta-hero__actions {
+  display:flex; align-items:center; gap:20px; flex-wrap:wrap;
+  animation:cta-slide-up .8s ease .6s both;
+}
+
+.cta-hero__circle-badge {
+  width:140px; height:140px; position:relative; margin:0 auto;
+  animation:cta-float 4s ease-in-out infinite;
+}
+.cta-hero__circle-ring {
+  position:absolute; inset:0; animation:cta-rotate-slow 10s linear infinite;
+}
+.cta-hero__circle-ring svg { width:100%; height:100%; }
+.cta-hero__circle-medal {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:50px; height:50px;
+  background:linear-gradient(135deg,#f5c842,#e08a00);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  font-size:22px; font-weight:700; color:#fff;
+  box-shadow:0 0 0 6px rgba(245,200,66,.2);
+}
+
+.cta-hero__sale-tag {
+  position:absolute; top:20px; right:-10px;
+  background:#e8144a; color:#fff; text-align:center;
+  padding:14px 20px; border-radius:50%;
+  width:85px; height:85px;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  animation:cta-bounce 2.5s ease-in-out infinite; z-index:3;
+}
+.cta-hero__sale-tag .label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; line-height:1; }
+.cta-hero__sale-tag .pct   { font-size:22px; font-weight:700; line-height:1.1; }
+
+/* ===========================================
+   CTA 2 — STATS COUNTER
+=========================================== */
+.cta-stats {
+  background:#1a1a1a; padding:70px 0; position:relative; overflow:hidden;
+}
+.cta-stats::before,.cta-stats::after {
+  content:''; position:absolute; left:0; width:100%; height:3px;
+  background:linear-gradient(90deg,transparent,var(--theme1),transparent);
+}
+.cta-stats::before { top:0; }
+.cta-stats::after  { bottom:0; }
+
+.cta-stats__heading-wrap { text-align:center; margin-bottom:55px; animation:cta-slide-up .7s ease both; }
+.cta-stats__heading-wrap .sub-heading { justify-content:center; }
+
+.cta-stats__grid {
+  display:grid; grid-template-columns:repeat(4,1fr);
+  border:1px solid rgba(255,255,255,.12);
+}
+.cta-stats__item {
+  padding:45px 24px; text-align:center; position:relative; z-index:1;
+  border-right:1px solid rgba(255,255,255,.12); transition:background .3s;
+}
+.cta-stats__item:last-child { border-right:none; }
+.cta-stats__item::before {
+  content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%);
+  width:0; height:0; background:rgba(255,43,0,.06);
+  transition:all .4s ease; z-index:-1;
+}
+.cta-stats__item::after {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  height:3px; width:0; background:var(--theme1); transition:width .4s ease;
+}
+.cta-stats__item:hover::before { width:100%; height:100%; }
+.cta-stats__item:hover::after  { width:100%; }
+
+.cta-stats__item-icon { width:56px; margin:0 auto 18px; }
+.cta-stats__item-icon svg { width:100%; }
+.cta-stats__item-count {
+  font-size:52px; font-weight:700; color:#fff; line-height:1;
+  display:flex; align-items:center; justify-content:center; gap:2px;
+  animation:cta-bounce 3s ease-in-out infinite;
+}
+.cta-stats__item-count .plus { color:var(--theme1); font-size:38px; }
+.cta-stats__item-label {
+  font-size:12px; color:rgba(255,255,255,.55); text-transform:uppercase;
+  letter-spacing:1.2px; margin-top:10px;
+}
+
+/* ===========================================
+   CTA 3 — SPLIT OFFER
+=========================================== */
+.cta-split {
+  padding:80px 0; background:#141414; position:relative; overflow:hidden;
+}
+.cta-split__bg-shape {
+  position:absolute; bottom:-80px; left:-80px;
+  width:350px; height:350px; border-radius:50%;
+  border:60px solid rgba(255,43,0,.05);
+  animation:cta-rotate-slow 20s linear infinite;
+}
+.cta-split__left { position:relative; z-index:1; animation:cta-slide-left .8s ease both; }
+.cta-split__heading { color:#fff; margin-bottom:16px; }
+.cta-split__heading span { color:var(--theme1); }
+.cta-split__text { color:rgba(255,255,255,.7); margin-bottom:28px; line-height:1.8; }
+
+.cta-split__features { list-style:none; padding:0; margin:0 0 40px; }
+.cta-split__features li {
+  display:flex; align-items:center; gap:14px; padding:12px 0;
+  color:rgba(255,255,255,.82); font-size:15px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  transition:all .3s ease;
+}
+.cta-split__features li:hover { color:#fff; padding-left:6px; }
+.cta-split__features li::before {
+  content:''; width:22px; height:22px; flex:0 0 auto;
+  background:rgba(255,43,0,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FF2B00' stroke-width='2.5'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/14px no-repeat;
+  border:1px solid var(--theme1); border-radius:50%;
+}
+
+.cta-split__card {
+  position:relative; z-index:1;
+  background:linear-gradient(145deg,#990000,var(--theme1));
+  border-radius:0; padding:50px 40px; text-align:center; overflow:hidden;
+  animation:cta-slide-right .8s ease both;
+}
+.cta-split__card::before {
+  content:''; position:absolute; top:-50%; left:-50%;
+  width:200%; height:200%;
+  background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 60%);
+  animation:cta-rotate-slow 12s linear infinite;
+}
+.cta-split__card-tag {
+  display:inline-block; background:rgba(255,255,255,.18); color:#fff;
+  font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:2px; padding:6px 18px; border-radius:30px; margin-bottom:22px;
+}
+.cta-split__card-title {
+  color:#fff; font-size:clamp(24px,3vw,38px); font-weight:700;
+  line-height:1.2; margin-bottom:10px;
+}
+.cta-split__card-price { margin:22px 0; }
+.cta-split__card-price .old {
+  text-decoration:line-through; color:rgba(255,255,255,.55);
+  font-size:17px; display:block; margin-bottom:8px;
+}
+.cta-split__card-price .new {
+  color:#fff; font-size:52px; font-weight:700; line-height:1;
+  display:flex; align-items:flex-start; justify-content:center; gap:4px;
+}
+.cta-split__card-price .new sup { font-size:26px; margin-top:9px; }
+.cta-split__card-price .new sub { font-size:15px; align-self:flex-end; margin-bottom:7px; font-weight:400; }
+.cta-split__card-desc { color:rgba(255,255,255,.78); font-size:14px; margin-bottom:30px; }
+.cta-split__card-btn {
+  position:relative; overflow:hidden; display:inline-block;
+  background:#fff; color:var(--theme1); font-weight:700;
+  padding:14px 40px; border:none; font-size:16px; cursor:pointer;
+  transition:all .3s ease; text-decoration:none;
+}
+.cta-split__card-btn::after {
+  content:''; position:absolute; top:0; left:-100%;
+  width:60%; height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+  animation:cta-shimmer 2s ease-in-out infinite;
+}
+.cta-split__card-btn:hover { background:var(--theme2); color:#fff; }
+.cta-split__card-live {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  margin-top:18px; font-size:13px; color:rgba(255,255,255,.65);
+}
+.cta-split__card-live::before {
+  content:''; width:8px; height:8px; border-radius:50%;
+  background:#4cff91; animation:cta-blink 1.2s ease-in-out infinite;
+}
+
+/* ===========================================
+   CTA 4 — ENROLL / NEWSLETTER
+=========================================== */
+.cta-enroll { background:#0d0d0d; position:relative; overflow:hidden; }
+
+.cta-enroll__ticker { background:var(--theme1); padding:11px 0; overflow:hidden; white-space:nowrap; }
+.cta-enroll__ticker-track {
+  display:inline-flex; gap:60px;
+  animation:cta-ticker 22s linear infinite; will-change:transform;
+}
+.cta-enroll__ticker-item {
+  display:inline-flex; align-items:center; gap:12px;
+  font-size:12px; font-weight:700; color:#fff;
+  text-transform:uppercase; letter-spacing:1px; flex-shrink:0;
+}
+.cta-enroll__ticker-item::before { content:'★'; font-size:14px; color:rgba(255,255,255,.6); }
+
+.cta-enroll__body { padding:80px 0; position:relative; z-index:1; }
+.cta-enroll__pattern {
+  position:absolute; top:0; right:0; width:45%; height:100%;
+  background-image:radial-gradient(rgba(255,43,0,.1) 1.5px,transparent 1.5px);
+  background-size:20px 20px; pointer-events:none;
+}
+.cta-enroll__left { animation:cta-slide-left .8s ease both; }
+.cta-enroll__heading { color:#fff; margin-bottom:14px; }
+.cta-enroll__heading span { color:var(--theme1); }
+.cta-enroll__text { color:rgba(255,255,255,.65); line-height:1.8; }
+
+.cta-enroll__courses { margin-top:36px; display:flex; flex-direction:column; gap:18px; }
+.cta-enroll__course-head {
+  display:flex; justify-content:space-between; margin-bottom:8px;
+}
+.cta-enroll__course-head span { font-size:13px; color:rgba(255,255,255,.65); }
+.cta-enroll__course-head span:last-child { color:var(--theme1); font-weight:600; }
+.cta-enroll__course-bar {
+  height:6px; background:rgba(255,255,255,.08); border-radius:3px; overflow:hidden;
+}
+.cta-enroll__course-bar .fill {
+  height:100%; background:var(--theme1); border-radius:3px;
+  width:0; animation:cta-bar-grow 1.5s ease forwards .3s;
+}
+
+.cta-enroll__form-wrap {
+  background:#1a1a1a; padding:40px; position:relative;
+  animation:cta-slide-right .8s ease both;
+}
+.cta-enroll__form-wrap::before {
+  content:''; position:absolute; top:0; left:0;
+  width:100%; height:4px;
+  background:linear-gradient(90deg,#991900,var(--theme1));
+}
+.cta-enroll__form-title { color:#fff; margin-bottom:6px; font-size:22px; }
+.cta-enroll__form-title span { color:var(--theme1); }
+.cta-enroll__form-sub { color:rgba(255,255,255,.55); font-size:14px; margin-bottom:26px; }
+.cta-enroll__form { display:flex; flex-direction:column; gap:14px; }
+.cta-enroll__form .form-control {
+  background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+  color:#fff; border-radius:0; padding:14px 18px;
+  font-size:15px; outline:none; box-shadow:none; transition:border-color .3s;
+}
+.cta-enroll__form .form-control::placeholder { color:rgba(255,255,255,.3); }
+.cta-enroll__form .form-control:focus { border-color:var(--theme1); }
+.cta-enroll__form .themebtn { width:100%; text-align:center; border:none; }
+.cta-enroll__trust {
+  display:flex; align-items:center; gap:8px;
+  margin-top:16px; font-size:12px; color:rgba(255,255,255,.4);
+}
+.cta-enroll__trust::before { content:'🔒'; font-size:13px; }
+
+/* Section labels */
+.section-label {
+  background:var(--theme1); color:#fff; font-size:11px; font-weight:700;
+  text-transform:uppercase; letter-spacing:2px; padding:4px 14px;
+  position:absolute; top:0; left:0;
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     CTA 1 — HERO BANNER (Image wali style)
+============================================ -->
+<section class="cta-hero">
+  <!-- Shapes -->
+  <div class="cta-hero__shape cta-hero__shape--tri"></div>
+  <div class="cta-hero__shape cta-hero__shape--circle"></div>
+  <div class="cta-hero__shape cta-hero__shape--dot-grid"></div>
+  <div class="cta-hero__shape cta-hero__shape--cube"></div>
+
+  <div class="container cta-hero__inner">
+    <span class="section-label">CTA 01</span>
+    <div class="row align-items-center gy-5 pt-4">
+
+      <!-- Left Content -->
+      <div class="col-lg-6">
+        <div class="cta-hero__badge">
+          <span class="cta-hero__badge-icon">📚</span>
+          <span class="cta-hero__badge-text">10,000+ Unique Courses</span>
+        </div>
+        <h2 class="cta-hero__heading display-5">
+          Let's Find The <span>Right Course</span> For You!
+        </h2>
+        <p class="cta-hero__text">
+          Achieve your learning goals. With our expert tutors,
+          your goals are closer than ever before.
+        </p>
+        <div class="cta-hero__actions">
+          <a href="#" class="themebtn">
+            Start Learning &nbsp;&#8594;
+          </a>
+          <a href="#" class="serviceBtn">
+            View Courses <span>&#8594;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: Circular badge + Sale tag -->
+      <div class="col-lg-6 d-flex justify-content-center">
+        <div style="position:relative; display:inline-block;">
+          <!-- Circle badge -->
+          <div class="cta-hero__circle-badge">
+            <div class="cta-hero__circle-ring">
+              <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <path id="circ" d="M65,65 m-45,0 a45,45 0 1,1 90,0 a45,45 0 1,1 -90,0"/>
+                </defs>
+                <text fill="rgba(255,255,255,0.7)" font-size="10" font-weight="600" letter-spacing="8" text-anchor="middle">
+                  <textPath href="#circ">THE BEST ONLINE COURSES</textPath>
+                </text>
+              </svg>
+            </div>
+            <div class="cta-hero__circle-medal">1</div>
+          </div>
+          <!-- Sale tag -->
+          <div class="cta-hero__sale-tag">
+            <span class="label">Big Sale!</span>
+            <span class="pct">30%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     CTA 2 — STATS COUNTER
+============================================ -->
+<section class="cta-stats">
+  <div class="container">
+    <span class="section-label" style="position:relative;top:auto;left:auto;display:inline-block;margin-bottom:30px;">CTA 02</span>
+    <div class="cta-stats__heading-wrap">
+      <p class="sub-heading"><span></span> Our Numbers Speak</p>
+      <h2 class="h1" style="color:#fff;">Trusted by <span style="color:var(--theme1)">Millions</span> Worldwide</h2>
+    </div>
+
+    <div class="cta-stats__grid">
+
+      <!-- Item 1 -->
+      <div class="cta-stats__item">
+        <div class="cta-stats__item-icon">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="28" stroke="#FF2B00" stroke-width="2"/>
+            <path d="M20 38 L20 26 L30 20 L40 26 L40 38Z" stroke="#FF2B00" stroke-width="2" fill="rgba(255,43,0,.15)"/>
+            <line x1="26" y1="38" x2="26" y2="31" stroke="#FF2B00" stroke-width="2"/>
+            <line x1="34" y1="38" x2="34" y2="31" stroke="#FF2B00" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="cta-stats__item-count">
+          <span class="counters">10,000</span><span class="plus">+</span>
+        </div>
+        <p class="cta-stats__item-label">Unique Courses</p>
+      </div>
+
+      <!-- Item 2 -->
+      <div class="cta-stats__item">
+        <div class="cta-stats__item-icon">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="28" stroke="#FF2B00" stroke-width="2"/>
+            <circle cx="30" cy="24" r="8" stroke="#FF2B00" stroke-width="2" fill="rgba(255,43,0,.15)"/>
+            <path d="M15 44 Q30 34 45 44" stroke="#FF2B00" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div class="cta-stats__item-count">
+          <span class="counters">50,000</span><span class="plus">+</span>
+        </div>
+        <p class="cta-stats__item-label">Happy Students</p>
+      </div>
+
+      <!-- Item 3 -->
+      <div class="cta-stats__item">
+        <div class="cta-stats__item-icon">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="28" stroke="#FF2B00" stroke-width="2"/>
+            <polygon points="30,16 34,26 45,26 36,33 39,44 30,37 21,44 24,33 15,26 26,26" stroke="#FF2B00" stroke-width="1.5" fill="rgba(255,43,0,.15)"/>
+          </svg>
+        </div>
+        <div class="cta-stats__item-count">
+          <span class="counters">4.9</span>
+        </div>
+        <p class="cta-stats__item-label">Average Rating</p>
+      </div>
+
+      <!-- Item 4 -->
+      <div class="cta-stats__item">
+        <div class="cta-stats__item-icon">
+          <svg viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="30" cy="30" r="28" stroke="#FF2B00" stroke-width="2"/>
+            <rect x="18" y="22" width="24" height="18" rx="2" stroke="#FF2B00" stroke-width="2" fill="rgba(255,43,0,.15)"/>
+            <line x1="22" y1="34" x2="38" y2="34" stroke="#FF2B00" stroke-width="1.5"/>
+            <line x1="22" y1="29" x2="38" y2="29" stroke="#FF2B00" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="cta-stats__item-count">
+          <span class="counters">500</span><span class="plus">+</span>
+        </div>
+        <p class="cta-stats__item-label">Expert Tutors</p>
+      </div>
+
+    </div><!-- /grid -->
+  </div>
+</section>
+
+
+<!-- ============================================
+     CTA 3 — SPLIT OFFER CARD
+============================================ -->
+<section class="cta-split">
+  <div class="cta-split__bg-shape"></div>
+  <div class="container">
+    <span class="section-label" style="position:relative;top:auto;left:auto;display:inline-block;margin-bottom:30px;">CTA 03</span>
+    <div class="row align-items-center gy-5">
+
+      <!-- Left -->
+      <div class="col-lg-6 cta-split__left">
+        <p class="sub-heading"><span></span> Limited Time Offer</p>
+        <h2 class="h1 cta-split__heading">
+          Start Your Learning Journey <span>Today</span>
+        </h2>
+        <p class="cta-split__text">
+          Get unlimited access to all courses, expert mentorship, and live sessions.
+          Join thousands of learners who are already transforming their careers.
+        </p>
+        <ul class="cta-split__features">
+          <li>Access to 10,000+ premium courses</li>
+          <li>Live Q&amp;A sessions with industry experts</li>
+          <li>Downloadable resources &amp; certificates</li>
+          <li>Lifetime access — learn at your own pace</li>
+          <li>30-day money-back guarantee</li>
+        </ul>
+        <a href="#" class="themebtn">Claim Offer Now &nbsp;&#8594;</a>
+      </div>
+
+      <!-- Right: Offer Card -->
+      <div class="col-lg-5 offset-lg-1">
+        <div class="cta-split__card">
+          <span class="cta-split__card-tag">🔥 Flash Sale — 48 Hours Left</span>
+          <h3 class="cta-split__card-title">Full Access Premium Plan</h3>
+          <div class="cta-split__card-price">
+            <span class="old">₹4,999 / year</span>
+            <div class="new">
+              <sup>₹</sup>1,499<sub>/yr</sub>
+            </div>
+          </div>
+          <p class="cta-split__card-desc">Save 70% — Biggest discount of the year!</p>
+          <a href="#" class="cta-split__card-btn">Enroll Now — Save 70%</a>
+          <div class="cta-split__card-live">1,243 people enrolled today</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================
+     CTA 4 — NEWSLETTER / ENROLL
+============================================ -->
+<section class="cta-enroll">
+  <!-- Ticker -->
+  <div class="cta-enroll__ticker">
+    <div class="cta-enroll__ticker-track">
+      <span class="cta-enroll__ticker-item">Web Development</span>
+      <span class="cta-enroll__ticker-item">Data Science</span>
+      <span class="cta-enroll__ticker-item">UI/UX Design</span>
+      <span class="cta-enroll__ticker-item">Digital Marketing</span>
+      <span class="cta-enroll__ticker-item">Python Programming</span>
+      <span class="cta-enroll__ticker-item">Machine Learning</span>
+      <span class="cta-enroll__ticker-item">Cloud Computing</span>
+      <span class="cta-enroll__ticker-item">Graphic Design</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="cta-enroll__ticker-item">Web Development</span>
+      <span class="cta-enroll__ticker-item">Data Science</span>
+      <span class="cta-enroll__ticker-item">UI/UX Design</span>
+      <span class="cta-enroll__ticker-item">Digital Marketing</span>
+      <span class="cta-enroll__ticker-item">Python Programming</span>
+      <span class="cta-enroll__ticker-item">Machine Learning</span>
+      <span class="cta-enroll__ticker-item">Cloud Computing</span>
+      <span class="cta-enroll__ticker-item">Graphic Design</span>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="cta-enroll__body">
+    <div class="cta-enroll__pattern"></div>
+    <div class="container">
+      <span class="section-label" style="position:relative;top:auto;left:auto;display:inline-block;margin-bottom:30px;">CTA 04</span>
+      <div class="row gy-5 align-items-center">
+
+        <!-- Left -->
+        <div class="col-lg-6 cta-enroll__left">
+          <p class="sub-heading"><span></span> Get Started Free</p>
+          <h2 class="h1 cta-enroll__heading">
+            Find The <span>Perfect Course</span> &amp; Grow Your Skills
+          </h2>
+          <p class="cta-enroll__text">
+            Join over 50,000 learners who have already leveled up their careers
+            with our expert-led, industry-relevant courses.
+          </p>
+
+          <!-- Progress bars -->
+          <div class="cta-enroll__courses">
+            <div>
+              <div class="cta-enroll__course-head">
+                <span>Web Development</span><span>92%</span>
+              </div>
+              <div class="cta-enroll__course-bar">
+                <div class="fill" style="--bar-w:92%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="cta-enroll__course-head">
+                <span>Data Science &amp; AI</span><span>85%</span>
+              </div>
+              <div class="cta-enroll__course-bar">
+                <div class="fill" style="--bar-w:85%;animation-delay:.5s"></div>
+              </div>
+            </div>
+            <div>
+              <div class="cta-enroll__course-head">
+                <span>UI/UX Design</span><span>78%</span>
+              </div>
+              <div class="cta-enroll__course-bar">
+                <div class="fill" style="--bar-w:78%;animation-delay:.8s"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Form -->
+        <div class="col-lg-5 offset-lg-1">
+          <div class="cta-enroll__form-wrap">
+            <h3 class="cta-enroll__form-title">Enroll <span>Free</span> Today</h3>
+            <p class="cta-enroll__form-sub">No credit card required. Cancel anytime.</p>
+            <form class="cta-enroll__form" onsubmit="return false;">
+              <input type="text"  class="form-control" placeholder="Your Full Name">
+              <input type="email" class="form-control" placeholder="Email Address">
+              <select class="form-control" style="background:#1a1a1a;color:rgba(255,255,255,.6)">
+                <option value="">Select a Course</option>
+                <option>Web Development</option>
+                <option>Data Science</option>
+                <option>UI/UX Design</option>
+                <option>Digital Marketing</option>
+              </select>
+              <button type="submit" class="themebtn">
+                Start Learning Free &nbsp;&#8594;
+              </button>
+            </form>
+            <div class="cta-enroll__trust">Your data is safe and never shared</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
